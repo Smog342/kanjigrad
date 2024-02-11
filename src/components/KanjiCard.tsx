@@ -3,6 +3,8 @@ import { useState } from "react";
 export default function KanjiCard(props: { kanji: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  console.log("KanjiCard render");
+
   return (
     <div
       onClick={() => {
