@@ -1,14 +1,19 @@
 import { useState } from "react";
+import useClickOutside from "../hooks/useClickOutside";
 
 export default function KanjiCard(props: { kanji: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const cardRef = useClickOutside(() => {
+    setIsFlipped(false);
+  });
 
   console.log("KanjiCard render");
 
   return (
     <div
+      ref={cardRef}
       onClick={() => {
-        setIsFlipped(!isFlipped);
+        !isFlipped && setIsFlipped(!isFlipped);
       }}
       style={{ perspective: 1000, cursor: "pointer" }}
     >
@@ -31,13 +36,13 @@ export default function KanjiCard(props: { kanji: string }) {
       >
         <div
           style={{ backfaceVisibility: "hidden" }}
-          className="absolute w-full h-full bg-blue-600"
+          className="kanjicard absolute w-full h-full bg-blue-600"
         ></div>
         <div
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           className="absolute w-full h-full"
         >
-          <p className="select-none font-noto font-black text-[60px] text-center">
+          <p className="kanjicard select-none font-noto font-black text-[60px] text-center">
             {props.kanji}
           </p>
         </div>
