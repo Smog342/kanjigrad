@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useClickOutside from "../hooks/useClickOutside";
+import useGetClickedKanji from "../hooks/useGetClickedKanji";
 
 export default function KanjiCard(props: { kanji: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isPaired, setIsPaired] = useState(false);
   const cardRef = useClickOutside(() => {
     setIsFlipped(false);
   });
+
+  useGetClickedKanji();
 
   console.log("KanjiCard render");
 
@@ -32,7 +36,11 @@ export default function KanjiCard(props: { kanji: string }) {
                 transformStyle: "preserve-3d",
               }
         }
-        className="relative w-[100px] h-[100px]"
+        className={
+          isFlipped
+            ? "flipped relative w-[100px] h-[100px]"
+            : "relative w-[100px] h-[100px]"
+        }
       >
         <div
           style={{ backfaceVisibility: "hidden" }}
