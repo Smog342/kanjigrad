@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         noto: "'Noto Sans JP', sans-serif",
       },
+      backgroundImage: {
+        auth_image_riruru: "url('/src/assets/riruru.jpg')",
+      },
     },
   },
   plugins: [],
