@@ -1,12 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { AuthPage } from "./components/AuthPage";
-import KanjiCard from "./components/KanjiCard";
 import KanjiTable from "./components/KanjiTable";
 
 function App() {
   return (
     <>
-      <AuthPage />
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/kanjitable" element={<KanjiTable />} />
+      </Routes>
     </>
   );
 }
