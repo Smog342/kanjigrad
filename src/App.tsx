@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<AuthPage />} />
+        <Route path="/*" element={<AuthPage />} />
         <Route path="/kanjitable" element={<KanjiTable />} />
       </Routes>
     </>

@@ -10,7 +10,7 @@ import { useState } from "react";
 export const AuthPage = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { handleSubmit, register, formState, watch } = useForm({
+  const { handleSubmit, register, formState, watch, reset } = useForm({
     defaultValues: { login: "", password: "", confirm_password: "" },
   });
   const { errors } = formState;
@@ -77,7 +77,7 @@ export const AuthPage = () => {
                 onSubmit={handleSubmit(handleAuthorization)}
               >
                 <input
-                  className="mr-auto ml-auto w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
+                  className="mr-auto ml-auto mt-[15%] w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
                   type="text"
                   placeholder="Логин"
                   {...register("login", {
@@ -90,7 +90,7 @@ export const AuthPage = () => {
                 <input
                   placeholder="Пароль"
                   className="mr-auto ml-auto w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
-                  type="text"
+                  type="password"
                   {...register("password", {
                     required: { value: true, message: "Не введён пароль" },
                   })}
@@ -101,7 +101,23 @@ export const AuthPage = () => {
                 <p className="ml-auto mr-auto text-red-500">
                   {isWrongCredentials ? "Неверные логин или пароль" : ""}
                 </p>
-                <button type="submit">Войти</button>
+                <div className="flex mt-auto w-full h-[15%]">
+                  <button
+                    type="submit"
+                    className="bg-blue-400 rounded-bl-[55px] w-full ml-[-15px]"
+                  >
+                    Войти
+                  </button>
+                  <button
+                    onClick={() => {
+                      reset();
+                      navigate("/register");
+                    }}
+                    className="bg-blue-400 rounded-br-[55px] w-full mr-[-15px]"
+                  >
+                    Зарегистрироваться
+                  </button>
+                </div>
               </form>
             </>
           )}
@@ -112,7 +128,7 @@ export const AuthPage = () => {
                 onSubmit={handleSubmit(handleRegistration)}
               >
                 <input
-                  className="mr-auto ml-auto w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
+                  className="mr-auto ml-auto mt-[15%] w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
                   type="text"
                   placeholder="Логин"
                   {...register("login", {
@@ -125,7 +141,7 @@ export const AuthPage = () => {
                 <input
                   placeholder="Пароль"
                   className="mr-auto ml-auto w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
-                  type="text"
+                  type="password"
                   {...register("password", {
                     required: { value: true, message: "Не введён пароль" },
                   })}
@@ -136,7 +152,7 @@ export const AuthPage = () => {
                 <input
                   placeholder="Повторный пароль"
                   className="mr-auto ml-auto w-[60%] h-[10%] rounded-[10px] bg-gray-50 placeholder:pl-[10px] pl-[10px]"
-                  type="text"
+                  type="password"
                   {...register("confirm_password", {
                     required: {
                       value: true,
@@ -152,28 +168,26 @@ export const AuthPage = () => {
                 <p className="ml-auto mr-auto text-red-500">
                   {errors.confirm_password?.message}
                 </p>
-                <button type="submit">Зарегистрироваться</button>
+                <div className="flex mt-auto w-full h-[15%]">
+                  <button
+                    onClick={() => {
+                      reset();
+                      navigate("/");
+                    }}
+                    className="bg-blue-400 rounded-bl-[55px] w-full ml-[-15px]"
+                  >
+                    Войти
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-400 rounded-br-[55px] w-full mr-[-15px]"
+                  >
+                    Зарегистрироваться
+                  </button>
+                </div>
               </form>
             </>
           )}
-          <div className="flex mt-auto w-full h-[15%]">
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-              className="bg-blue-400 rounded-bl-[55px] w-full ml-[-15px]"
-            >
-              Войти
-            </button>
-            <button
-              onClick={() => {
-                navigate("/register");
-              }}
-              className="bg-blue-400 rounded-br-[55px] w-full mr-[-15px]"
-            >
-              Зарегистрироваться
-            </button>
-          </div>
         </div>
       </div>
     </>
