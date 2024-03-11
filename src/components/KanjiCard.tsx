@@ -5,13 +5,18 @@ import useGetClickedKanji from "../hooks/useGetClickedKanji";
 export default function KanjiCard(props: { kanji: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPaired, setIsPaired] = useState(false);
-  const cardRef = useClickOutside(() => {
+  const { cardRef, detec } = useClickOutside(() => {
     setIsFlipped(false);
   });
 
-  useGetClickedKanji();
-
   console.log("KanjiCard render");
+
+  // useEffect(() => {
+  //   // if (props.kanji === "力" && detec.current === "諦") {
+  //   //   console.log("PAAAAAAAAAAAAAIIIIIIRRRRRR!!!!");
+  //   // }
+  //   console.log(detec);
+  // }, [detec.current]);
 
   return (
     <div
