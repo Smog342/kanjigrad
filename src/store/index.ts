@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { baseApi } from "./api/baseApi";
+import detectedKanjiSlice from "./reducers/detectedKanjiSlice";
 
 export const store = configureStore({
-  reducer: { [baseApi.reducerPath]: baseApi.reducer },
+  reducer: {
+    detectedKanji: detectedKanjiSlice,
+    [baseApi.reducerPath]: baseApi.reducer,
+  },
   middleware: (getDefaultMiddlware) =>
     getDefaultMiddlware().concat(baseApi.middleware),
 });
