@@ -3,9 +3,9 @@ import useClickOutside from "../hooks/useClickOutside";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import { detectKanji, pairKanji } from "../store/reducers/detectedKanjiSlice";
-import { detectedKanjiType } from "../type";
+import { detectedKanjiType, kanjiCardType } from "../type";
 
-export default function KanjiCard(props: { kanji: string }) {
+export default function KanjiCard(props: kanjiCardType) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPaired, setIsPaired] = useState(false);
 
@@ -32,10 +32,15 @@ export default function KanjiCard(props: { kanji: string }) {
   console.log(detectedKanjiStateRef.current.detectedKanjis);
 
   useEffect(() => {
-    detectedKanjiStateRef.current.prevKanji === "力" &&
-      detectedKanjiStateRef.current.newKanji === "諦" &&
-      (props.kanji === "力" || props.kanji === "諦") &&
-      setIsPaired(true);
+    props.position === "FIRST"
+      ? detectedKanjiStateRef.current.prevKanji === props.kanji &&
+        detectedKanjiStateRef.current.newKanji === props.pairA &&
+        setIsPaired(true)
+      : props.position === "SECOND"
+      ? detectedKanjiStateRef.current.prevKanji === props.pairA &&
+        detectedKanjiStateRef.current.newKanji === props.kanji &&
+        setIsPaired(true)
+      : {};
   }, [detectedKanjiStateRef.current]);
 
   if (isPaired) {
